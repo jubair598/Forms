@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio · contact</title>
+    <!-- Font Awesome for subtle icons (optional but adds polish) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f6f9fc 0%, #e9f1f8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+        }
+
+        /* card container – like a floating portfolio piece */
+        .form-card {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            background: #ffffff;
+            border-radius: 2.5rem;
+            padding: 2.5rem 2.8rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 20, 40, 0.25), 0 8px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: 0.2s;
+        }
+
+        @media (max-width: 500px) {
+            .form-card {
+                padding: 2rem 1.5rem;
+                border-radius: 2rem;
+            }
+        }
+
+        /* header / portfolio flavour */
+        .form-header {
+            margin-bottom: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .form-header h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0b1e2e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-header h1 i {
+            color: #2a7de1;
+            font-size: 1.8rem;
+        }
+
+        .form-header .badge {
+            background: #eef4ff;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1d4a8b;
+            letter-spacing: 0.3px;
+            border: 1px solid #d6e4ff;
+        }
+
+        /* field styling */
+        .field-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 550;
+            color: #1f3a57;
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        label i {
+            color: #2a7de1;
+            width: 1.2rem;
+            font-size: 1rem;
+        }
+
+        .field-group input,
+        .field-group textarea,
+        .field-group select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            font-size: 1rem;
+            background: #f6faff;
+            border: 1.5px solid #e2edf7;
+            border-radius: 1.4rem;
+            transition: 0.2s;
+            color: #0f293f;
+            font-weight: 450;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .field-group input:focus,
+        .field-group textarea:focus,
+        .field-group select:focus {
+            border-color: #2a7de1;
+            background: #ffffff;
+            box-shadow: 0 0 0 5px rgba(42, 125, 225, 0.12);
+        }
+
+        .field-group input::placeholder,
+        .field-group textarea::placeholder {
+            color: #a3b9d0;
+            font-weight: 350;
+        }
+
+        .field-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            border-radius: 1.4rem;
+        }
+
+        .field-group select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%232a7de1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-size: 1.2rem;
+        }
+
+        /* small hint */
+        .hint {
+            font-size: 0.75rem;
+            color: #5f7d9a;
+            margin-top: 0.3rem;
+            padding-left: 0.2rem;
+            opacity: 0.8;
+        }
+
+        /* submit button */
+        .submit-area {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            background: #0b1e2e;
+            color: white;
+            border: none;
+            padding: 1rem 2.6rem;
+            font-size: 1.1rem;
+            font-weight: 550;
+            border-radius: 3rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 12px 18px -8px rgba(11, 30, 46, 0.2);
+            border: 1px solid #294a66;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-submit i {
+            font-size: 1.2rem;
+        }
+
+        .btn-submit:hover {
+            background: #14344e;
+            transform: scale(1.02);
+            box-shadow: 0 18px 28px -10px #0b1e2e40;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.97);
+        }
+
+        .form-footnote {
+            color: #4b6b89;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .form-footnote i {
+            color: #2a7de1;
+        }
+
+        /* status message */
+        .status-message {
+            margin-top: 1.2rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 3rem;
+            background: #e2f0e8;
+            color: #0f4029;
+            font-weight: 450;
+            display: none;
+            border-left: 5px solid #1d804a;
+        }
+
+        .status-message.error {
+            background: #ffebee;
+            color: #a1303a;
+            border-left-color: #c62828;
+        }
+
+        .status-message.show {
+            display: block;
+        }
+
+        /* inline warning about formspree */
+        .formspree-notice {
+            margin-top: 2rem;
+            background: #f0f6fe;
+            border-radius: 2rem;
+            padding: 0.7rem 1.4rem;
+            font-size: 0.8rem;
+            color: #1e4b77;
+            border: 1px solid #cde0f5;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .formspree-notice i {
+            color: #c44536;
+        }
+
+        .formspree-notice a {
+            color: #1a5bb5;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px dashed #3c7bcb;
+        }
+
+        .formspree-notice a:hover {
+            border-bottom: 1px solid #1a5bb5;
+        }
+
+        /* responsive tweaks */
+        @media (max-width: 480px) {
+            .btn-submit {
+                width: 100%;
+                justify-content: center;
+            }
+            .form-footnote {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-card">
+
+        <!-- header -->
+        <div class="form-header">
+            <h1><i class="fas fa-pen-fancy"></i> Let’s connect</h1>
+            <span class="badge"><i class="fas fa-code"></i> portfolio</span>
+        </div>
+
+        <!-- ⚠️ form action: provided endpoint returns 405, but we keep it as given -->
+        <form id="contactForm" action="https://formspree.io/f/xgogekpq" method="POST">
+            <!-- hidden honeypot? not needed, Formspree uses _gotcha, but we can add an extra hidden if you want -->
+            
+            <!-- Name -->
+            <div class="field-group">
+                <label for="name"><i class="fas fa-user"></i> Full name</label>
+                <input type="text" id="name" name="name" placeholder="e.g. Alex Rivera" required>
+            </div>
+
+            <!-- Mobile -->
+            <div class="field-group">
+                <label for="mobile"><i class="fas fa-phone-alt"></i> Mobile</label>
+                <input type="tel" id="mobile" name="mobile" placeholder="+1 234 567 8900" required>
+                <div class="hint"><i class="fas fa-info-circle"></i> Include country code if international</div>
+            </div>
+
+            <!-- Email -->
+            <div class="field-group">
+                <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <!-- Purpose (dropdown) -->
+            <div class="field-group">
+                <label for="purpose"><i class="fas fa-bullseye"></i> Purpose</label>
+                <select id="purpose" name="purpose" required>
+                    <option value="" disabled selected>– select one –</option>
+                    <option value="project inquiry">Project inquiry</option>
+                    <option value="job opportunity">Job opportunity</option>
+                    <option value="collaboration">Collaboration</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Note / Message -->
+            <div class="field-group">
+                <label for="note"><i class="fas fa-comment-dots"></i> Note / message</label>
+                <textarea id="note" name="note" placeholder="Tell me about your idea, project, or just say hello …" required></textarea>
+            </div>
+
+            <!-- Submit + info -->
+            <div class="submit-area">
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Send message
+                </button>
+                <span class="form-footnote"><i class="fas fa-shield-alt"></i> encrypted & secure</span>
+            </div>
+
+            <!-- status message (hidden by default) -->
+            <div id="formStatus" class="status-message"></div>
+
+            <!-- small notice regarding the 405 error (transparent) -->
+            <div class="formspree-notice">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span><strong>Note:</strong> The Formspree endpoint <code>xgogekpq</code> returned a <strong>405</strong> status. 
+                Please double‑check your form ID. The form will still attempt to submit, but you may need to update the action URL.</span>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        (function() {
+            const form = document.getElementById('contactForm');
+            const statusDiv = document.getElementById('formStatus');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // helper to show status
+            function showStatus(message, isError = false) {
+                statusDiv.textContent = message;
+                statusDiv.className = 'status-message show';
+                if (isError) {
+                    statusDiv.classList.add('error');
+                } else {
+                    statusDiv.classList.remove('error');
+                }
+            }
+
+            // hide status after a timeout (optional)
+            function clearStatusAfter(delay = 6000) {
+                setTimeout(() => {
+                    statusDiv.className = 'status-message';
+                    statusDiv.textContent = '';
+                }, delay);
+            }
+
+            // handle form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault(); // we handle via fetch to capture response
+
+                // basic validation (browser does it, but we double-check)
+                const name = document.getElementById('name').value.trim();
+                const mobile = document.getElementById('mobile').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const purpose = document.getElementById('purpose').value;
+                const note = document.getElementById('note').value.trim();
+
+                if (!name || !mobile || !email || !purpose || !note) {
+                    showStatus('⚠️ Please fill in all fields before submitting.', true);
+                    clearStatusAfter(5000);
+                    return;
+                }
+
+                // gather form data
+                const formData = new FormData(form);
+
+                // disable button to avoid double submit
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending…';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json',
+                        },
+                    });
+
+                    // Formspree returns 200 OK on success, but if endpoint is wrong → 405 etc.
+                    if (response.ok) {
+                        showStatus('✅ Your message was sent successfully! I’ll get back to you soon.', false);
+                        form.reset(); // clear all fields
+                        // reset select to placeholder
+                        document.getElementById('purpose').selectedIndex = 0;
+                        clearStatusAfter(7000);
+                    } else {
+                        // try to parse error message from Formspree
+                        let errorMsg = `❌ Submission failed (${response.status} ${response.statusText})`;
+                        try {
+                            const data = await response.json();
+                            if (data && data.error) {
+                                errorMsg = `❌ ${data.error}`;
+                            }
+                        } catch (jsonError) {
+                            // if response not json, keep default
+                        }
+                        showStatus(errorMsg, true);
+                        clearStatusAfter(8000);
+                    }
+                } catch (networkError) {
+                    // network error, CORS, etc.
+                    showStatus('🚫 Network error – please check your connection and try again.', true);
+                    clearStatusAfter(8000);
+                } finally {
+                    // re-enable button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send message';
+                }
+            });
+
+            // if the user clicks on the status it disappears (optional)
+            statusDiv.addEventListener('click', function() {
+                this.className = 'status-message';
+                this.textContent = '';
+            });
+        })();
+    </script>
+
+    <!-- small extra: if the form uses the default action, but we already use fetch -->
+    <!-- the form will not redirect, all good -->
+</body>
+</html>
